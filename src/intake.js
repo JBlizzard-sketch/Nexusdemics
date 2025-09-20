@@ -254,42 +254,45 @@ bot.catch((err, ctx) => {
   }
 });
 
-// Create HTTP server for health check (required for Replit)
-const server = http.createServer((req, res) => {
-  if (req.url === '/health' || req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      status: 'healthy',
-      bot: 'running',
-      timestamp: new Date().toISOString(),
-      features: {
-        telegram: !!TELEGRAM_TOKEN,
-        eden_ai: !!EDEN_AI_KEY,
-        google_sheets: !!GOOGLE_SHEETS_ID
-      }
-    }));
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-  }
-});
+// Only start server and bot if this file is run directly (not imported for testing)
+if (require.main === module) {
+  // Create HTTP server for health check (required for Replit)
+  const server = http.createServer((req, res) => {
+    if (req.url === '/health' || req.url === '/') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        status: 'healthy',
+        bot: 'running',
+        timestamp: new Date().toISOString(),
+        features: {
+          telegram: !!TELEGRAM_TOKEN,
+          eden_ai: !!EDEN_AI_KEY,
+          google_sheets: !!GOOGLE_SHEETS_ID
+        }
+      }));
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not Found');
+    }
+  });
 
-// Start HTTP server on port 5000 (required for Replit)
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`🌐 Health check server running on http://0.0.0.0:${PORT}`);
-  console.log(`📊 Health endpoint: http://0.0.0.0:${PORT}/health`);
-});
+  // Start HTTP server on port 5000 (required for Replit)
+  const PORT = process.env.PORT || 5000;
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`🌐 Health check server running on http://0.0.0.0:${PORT}`);
+    console.log(`📊 Health endpoint: http://0.0.0.0:${PORT}/health`);
+  });
 
-// Start bot
-console.log('Starting Telegram Academic Bot...');
-console.log('Required environment variables:');
-console.log('- TELEGRAM_TOKEN:', TELEGRAM_TOKEN ? '✅ Set' : '❌ Missing');
-console.log('- EDEN_AI_KEY:', EDEN_AI_KEY ? '✅ Set' : '❌ Missing (will use fallbacks)');
-console.log('- GOOGLE_SHEETS_ID:', GOOGLE_SHEETS_ID ? '✅ Set' : '❌ Missing (will use console logging)');
+  // Start bot
+  console.log('Starting Telegram Academic Bot...');
+  console.log('Required environment variables:');
+  console.log('- TELEGRAM_TOKEN:', TELEGRAM_TOKEN ? '✅ Set' : '❌ Missing');
+  console.log('- EDEN_AI_KEY:', EDEN_AI_KEY ? '✅ Set' : '❌ Missing (will use fallbacks)');
+  console.log('- GOOGLE_SHEETS_ID:', GOOGLE_SHEETS_ID ? '✅ Set' : '❌ Missing (will use console logging)');
 
-bot.launch();
-console.log('🤖 Bot started successfully! Send /start to your bot to begin.');
+  bot.launch();
+  console.log('🤖 Bot started successfully! Send /start to your bot to begin.');
+}
 
 // Graceful shutdown
 process.once('SIGINT', () => bot.stop('SIGINT'));
