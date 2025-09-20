@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Source title",
+      "minLength": 5
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["name"]
+      },
+      "description": "List of authors"
+    },
+    "year": {
+      "type": "number",
+      "minimum": 2020,
+      "maximum": 2030,
+      "description": "Publication year (2020 or later)"
+    },
+    "doi": {
+      "type": "string",
+      "pattern": "^10\\..+",
+      "description": "DOI identifier"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Article abstract"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source URL"
+    },
+    "zoteroKey": {
+      "type": "string",
+      "description": "Zotero item key"
+    }
+  },
+  "required": ["title", "authors", "year", "doi"]
+}

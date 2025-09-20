@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Assignment topic",
+      "minLength": 3,
+      "maxLength": 200
+    },
+    "format": {
+      "enum": ["APA", "MLA", "Chicago"],
+      "description": "Citation style"
+    },
+    "length": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 50,
+      "description": "Page count"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Due date"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Assignment tags for organization"
+    },
+    "userType": {
+      "enum": ["tutor", "student", "mixed", "guest"],
+      "description": "User mode"
+    }
+  },
+  "required": ["topic", "userType"]
+}

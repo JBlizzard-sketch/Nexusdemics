@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Paper topic"
+    },
+    "format": {
+      "enum": ["APA", "MLA", "Chicago"],
+      "description": "Citation style"
+    },
+    "length": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 50,
+      "description": "Page count"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 100,
+      "description": "Draft content in Markdown"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doi": {
+            "type": "string"
+          },
+          "zoteroKey": {
+            "type": "string"
+          }
+        },
+        "required": ["doi"]
+      },
+      "description": "Sources used in the draft"
+    },
+    "plagiarismScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Plagiarism score (0-1)"
+    },
+    "bibliography": {
+      "type": "string",
+      "description": "Formatted bibliography"
+    }
+  },
+  "required": ["topic", "format", "content", "sources"]
+}
