@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+n8n-cache/
+tmp/
+.replit
+replit.nix

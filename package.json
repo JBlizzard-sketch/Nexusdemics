@@ -1,0 +1,24 @@
+{
+  "name": "telegram-academic-bot",
+  "version": "1.0.0",
+  "description": "Telegram AI academic assistant bot",
+  "main": "src/intake.js",
+  "scripts": {
+    "start": "node src/intake.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "telegraf": "^4.15.3",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "tesseract.js": "^4.1.1",
+    "joi": "^17.10.2",
+    "googleapis": "^129.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "keywords": ["telegram", "ai", "academic", "bot"],
+  "author": "Senior AI Engineer",
+  "license": "MIT"
+}
